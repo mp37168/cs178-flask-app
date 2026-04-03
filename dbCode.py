@@ -1,5 +1,5 @@
 # dbCode.py
-# Author: Your Name
+# Author: Maddie Phillips
 # Helper functions for database connection and queries
 
 import pymysql
@@ -22,3 +22,8 @@ def execute_query(query, args=()):
     rows = cur.fetchall()
     cur.close()
     return rows
+
+def get_movies():
+    """Returns a list of 15 movies in the database."""
+    query = "SELECT title, release_date FROM movie LIMIT 15;"
+    return execute_query(query)

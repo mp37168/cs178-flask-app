@@ -58,6 +58,13 @@ def display_users():
     users_list = (('John','Doe','Comedy'),('Jane', 'Doe','Drama'))
     return render_template('display_users.html', users = users_list)
 
+@app.route('/display-movies')
+def display_movies():
+    movies_list = get_movies() 
+    return render_template('display_movies.html', movies = movies_list)
+
+
+
 
 # these two lines of code should always be the last in the file
 if __name__ == '__main__':
