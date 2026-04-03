@@ -1,8 +1,8 @@
-# [Your Project Name Here]
+# Movie Browser
 
 **CS178: Cloud and Database Systems — Project #1**
-**Author:** [Your Name]
-**GitHub:** [your-username]
+**Author:** Maddie Phillips
+**GitHub:** mp37168
 
 ---
 
@@ -26,13 +26,17 @@
 
 ```
 ProjectOne/
-├── flaskapp.py          # Main Flask application — routes and app logic
-├── dbCode.py            # Database helper functions (MySQL connection + queries)
-├── creds_sample.py      # Sample credentials file (see Credential Setup below)
+├── flaskapp.py             # Main Flask application — routes and app logic
+├── dbCode.py               # Database helper functions (MySQL connection + queries)
+├── creds_sample.py         # Sample credentials file (see Credential Setup below)
 ├── templates/
-│   ├── home.html        # Landing page
-│   ├── [other].html     # Add descriptions for your other templates
-├── .gitignore           # Excludes creds.py and other sensitive files
+│   ├── home.html           # Landing page
+│   ├── add_user.html       # Page to create a new user
+│   ├── delete_user.html    # Page to delete a created user
+│   ├── display_users.html  # Page that shows all existing users
+│   ├── display_movies.html # Page that shows the output for query get_movies (displays movie title and release date)
+│   ├── movies_genres.html  # Page that shows the output for query get_movies_with_genres (displays movie title, release date, and genre)
+├── .gitignore              # Excludes creds.py and other sensitive files
 └── README.md
 ```
 
@@ -70,7 +74,7 @@ ProjectOne/
 The app is deployed on an AWS EC2 instance. To view the live version:
 
 ```
-http://[your-ec2-public-ip]:8080
+http://23.22.172.115:8080
 ```
 
 _(Note: the EC2 instance may not be running after project submission.)_
