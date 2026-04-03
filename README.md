@@ -130,9 +130,12 @@ The JOIN query used in this project: <!-- describe it in plain English -->
 ## Challenges and Insights
 
 <!-- What was the hardest part? What did you learn? Any interesting design decisions? -->
+I learned that it is important to do a thorough check of what you have written down for the commit message/name before pushing it. At the beginning of the project, I accidentally named something “Add creds.py” when in reality I was adding a delete user route.
 
----
+
 
 ## AI Assistance
 
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
+
+In dbCode I used ChatGBT to help with an error of does not exist I kept on getting for my get genre and movie query. Turns out the image I was looking at for the provided database was wrong. Instead of movie_genre being a table it was movie_genres. I was stumped for a while looking at my code. I also used it to help me get it so each time it pulled from the database it was random to prevent the same movies being shown. 

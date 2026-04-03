@@ -1,0 +1,20 @@
+<h1>Movies with Genres</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Release Date</th>
+            <th>Genre</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for m in movies %}
+        <tr>
+            <td>{{ m.title }}</td>
+            <td>{{ m.release_date }}</td>
+            <td>{{ m.genre_name }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>

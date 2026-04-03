@@ -63,8 +63,10 @@ def display_movies():
     movies_list = get_movies() 
     return render_template('display_movies.html', movies = movies_list)
 
-
-
+@app.route('/movies-genres')
+def movies_genres():
+    movies = get_movies_with_genres()
+    return render_template('movies_genres.html', movies = movies)
 
 # these two lines of code should always be the last in the file
 if __name__ == '__main__':

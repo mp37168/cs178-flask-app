@@ -25,5 +25,17 @@ def execute_query(query, args=()):
 
 def get_movies():
     """Returns a list of 15 movies in the database."""
-    query = "SELECT title, release_date FROM movie LIMIT 15;"
+    query = "SELECT title, release_date FROM movie ORDER BY RAND() LIMIT 15;"
+    return execute_query(query)
+
+def get_movies_with_genres():
+    """Returns a list of movies in the database that match the given genre."""
+    query = """
+SELECT m.title, m.release_date, g.genre_name
+FROM movie m
+JOIN movie_genres mg ON m.movie_id = mg.movie_id
+JOIN genre g ON mg.genre_id = g.genre_id
+ORDER BY RAND()
+LIMIT 15;
+    """
     return execute_query(query)
