@@ -34,8 +34,10 @@ ProjectOne/
 │   ├── add_user.html       # Page to create a new user
 │   ├── delete_user.html    # Page to delete a created user
 │   ├── display_users.html  # Page that shows all existing users
-│   ├── display_movies.html # Page that shows the output for query get_movies (displays movie title and release date)
+│   ├── display_movies.html # Page that shows the output for query get_movies (displays title and release date with options for CRUD)
 │   ├── movies_genres.html  # Page that shows the output for query get_movies_with_genres (displays movie title, release date, and genre)
+│   ├── add_movie.html      # Page to create a movie (C of CRUD, add movie title with release date)
+│   ├── update_movie.html   # Page to update/edit a movie (U of CRUD, update movie title and or release date)
 ├── .gitignore              # Excludes creds.py and other sensitive files
 └── README.md
 ```
@@ -75,6 +77,7 @@ The app is deployed on an AWS EC2 instance. To view the live version:
 
 ```
 http://23.22.172.115:8080
+http://ec2-23-22-172-115.compute-1.amazonaws.com:8080/
 ```
 
 _(Note: the EC2 instance may not be running after project submission.)_
@@ -142,4 +145,6 @@ I learned that it is important to do a thorough check of what you have written d
 
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
 
-In dbCode I used ChatGBT to help with an error of does not exist I kept on getting for my get genre and movie query. Turns out the image I was looking at for the provided database was wrong. Instead of movie_genre being a table it was movie_genres. I was stumped for a while looking at my code. I also used it to help me get it so each time it pulled from the database it was random to prevent the same movies being shown. 
+In dbCode I used ChatGBT to help with an error of does not exist I kept on getting for my get genre and movie query. Turns out the image I was looking at for the provided database was wrong. Instead of movie_genre being a table it was movie_genres. I was stumped for a while looking at my code. I also used it to help me get it so each time it pulled from the database it was random to prevent the same movies being shown.
+
+Implementation of CRUD: I used ChatGPT to help me figure out how to format it for Flask compatibility.

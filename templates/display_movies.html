@@ -1,17 +1,40 @@
-<h1> Movies </h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies</title>
+</head>
 
-<table class="table">
+<body>
+
+<h1>Movies</h1>
+
+<!-- Link to CREATE -->
+<a href="/add-movie">Add Movie</a>
+
+<table border="1" cellpadding="8" cellspacing="0">
     <thead>
         <tr>
             <th>Title</th>
             <th>Year</th>
+            <th>Actions</th>
         </tr>
     </thead>
+
     <tbody>
-        {% for m in movies %} 
+        {% for m in movies %}
         <tr>
-            <td>{{ m.title }}</td>
-            <td>{{ m.release_date }}</td>
+            <td>{{ m['title'] }}</td>
+            <td>{{ m['release_date'] }}</td>
+
+            <td>
+                <a href="/update-movie/{{ m['movie_id'] }}">Edit</a>
+                |
+                <a href="/delete-movie/{{ m['movie_id'] }}">Delete</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
+</table>
+
+</body>
+</html>
