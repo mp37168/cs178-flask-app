@@ -158,17 +158,19 @@ Storing a user's favorite movies. Users can add movies from the movie browser, v
 ## Challenges and Insights
 
 <!-- What was the hardest part? What did you learn? Any interesting design decisions? -->
-One of the biggest challenges in this project was correctly integrating both SQL (MySQL) and NoSQL (DynamoDB) databases into a single Flask application. Initially, I struggled with correctly structuring JOIN queries due to inconsistencies in table names.
+One of the biggest challenges in this project was properly connecting and managing both SQL (RDS) and DynamoDB within the same Flask application. It took time to understand how to separate responsibilities between relational and non-relational databases and ensure each was used correctly.
 
 Another challenge was debugging AWS permissions for DynamoDB, specifically IAM access errors when attempting to use PutItem. This helped me understand the importance of IAM roles and permissions in cloud applications.
 
 I also learned the importance of proper spacing and indentation in Python and HTML. Since both languages rely heavily on structure and formatting, small mistakes can lead to errors or unexpected behavior. This reinforced the importance of writing clean, well-organized code for both functionality and readability.
 
+Another challenge was maintaining consistency in naming conventions (such as Title vs title) across the database, Flask routes, and HTML templates.
+
 On the frontend side, I learned the importance of spacing, indentation, and consistent styling using Bootstrap. Without consistent formatting, pages looked unorganized and were harder to use, so improving UI structure made the application much more professional.
 
 Overall, I learned how full-stack applications connect frontend templates, backend Flask routes, and cloud-based databases into a single working system.
 
-
+Throughout the project, I learned the importance of careful spacing, indentation, and overall code organization, as small formatting errors often caused unexpected bugs. I also improved my ability to debug systematically instead of guessing at solutions.
 
 ## AI Assistance
 
