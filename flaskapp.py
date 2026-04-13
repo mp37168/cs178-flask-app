@@ -1,6 +1,6 @@
-# author: T. Urness and M. Moore
-# description: Flask example using redirect, url_for, and flash
-# credit: the template html files were constructed with the help of ChatGPT
+# author: Maddie Phillips
+# description: Flask app for displaying and managing movies and users in a MySQL database, as well as managing favorite movies in a DynamoDB table.
+# credit: This code was generated with the help of ChatGPT for the CRUD operations and DynamoDB integration.
 
 from flask import Flask
 from flask import render_template

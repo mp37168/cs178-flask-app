@@ -1,11 +1,51 @@
-<h2>Update Movie</h2>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Update Movie</title>
 
-<form method="POST">
-    Title:
-    <input name="title" value="{{ movie.title }}"><br>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
 
-    Release Date:
-    <input name="release_date" value="{{ movie.release_date }}"><br>
+    <style>
+        body {
+            background-color: #a5efd2;
+        }
+    </style>
+</head>
 
-    <button type="submit">Update</button>
-</form>
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">🎬 Update Movie</h2>
+
+    <form method="POST">
+
+        <div class="form-group">
+            <label>Title</label>
+            <input name="title"
+                   value="{{ movie.title }}"
+                   class="form-control">
+        </div>
+
+        <div class="form-group">
+            <label>Release Date</label>
+            <input name="release_date"
+                   value="{{ movie.release_date }}"
+                   class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-primary">
+            ✏️ Update Movie
+        </button>
+
+        <a href="/display-movies" class="btn btn-secondary">
+            Cancel
+        </a>
+
+    </form>
+
+</div>
+
+</body>
+</html>

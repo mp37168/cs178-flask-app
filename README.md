@@ -164,16 +164,17 @@ Another challenge was debugging AWS permissions for DynamoDB, specifically IAM a
 
 I also learned the importance of proper spacing and indentation in Python and HTML. Since both languages rely heavily on structure and formatting, small mistakes can lead to errors or unexpected behavior. This reinforced the importance of writing clean, well-organized code for both functionality and readability.
 
+On the frontend side, I learned the importance of spacing, indentation, and consistent styling using Bootstrap. Without consistent formatting, pages looked unorganized and were harder to use, so improving UI structure made the application much more professional.
+
 Overall, I learned how full-stack applications connect frontend templates, backend Flask routes, and cloud-based databases into a single working system.
 
 
 
 ## AI Assistance
 
-<!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
-
 ChatGPT was used to assist with:
-- Debugging SQL JOIN queries
-- Helping structure Flask CRUD routes
-- Troubleshooting AWS DynamoDB IAM permission errors
-- Formatting README documentation
+- Help debug Flask routing issues (including 404 errors and incorrect route parameters)
+- Assist with integrating AWS DynamoDB (PutItem, GetItem, and permission errors)
+- Improve SQL queries and JOIN logic for displaying movie and genre data
+- Format HTML templates using Bootstrap for a more consistent and professional UI
+- Improve code organization and readability across Flask routes and database helper files

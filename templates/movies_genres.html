@@ -1,20 +1,55 @@
-<h1>Movies with Genres</h1>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movies with Genres</title>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Title</th>
-            <th>Release Date</th>
-            <th>Genre</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for m in movies %}
-        <tr>
-            <td>{{ m.title }}</td>
-            <td>{{ m.release_date }}</td>
-            <td>{{ m.genre_name }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container mt-5">
+
+    <h2 class="mb-4">🎬 Movies with Genres</h2>
+
+    <table class="table table-striped table-hover table-bordered">
+
+        <thead class="thead-dark">
+            <tr>
+                <th>Title</th>
+                <th>Release Date</th>
+                <th>Genre</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for m in movies %}
+            <tr>
+                <td>{{ m.title }}</td>
+                <td>{{ m.release_date }}</td>
+                <td>
+                    <span class="badge badge-info">
+                        {{ m.genre_name }}
+                    </span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+    <a href="/display-movies" class="btn btn-secondary mt-3">
+        ⬅ Back to Movies
+    </a>
+
+</div>
+
+</body>
+</html>
