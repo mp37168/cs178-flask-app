@@ -58,8 +58,8 @@ ProjectOne/
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
-   cd your-repo-name
+   git clone https://github.com/mp37168/cs178-flask-app.git
+   cd cs178-flask-app
    ```
 
 2. Install dependencies:
@@ -85,7 +85,6 @@ ProjectOne/
 The app is deployed on an AWS EC2 instance. To view the live version:
 
 ```
-http://23.22.172.115:8080
 http://ec2-23-22-172-115.compute-1.amazonaws.com:8080/
 ```
 
