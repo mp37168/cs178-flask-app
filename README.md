@@ -9,6 +9,9 @@
 ## Overview
 
 <!-- Describe your project in 2-4 sentences. What does it do? Who is it for? What problem does it solve? -->
+Movie Browser is a full-stack web application built with Flask that allows users to browse and manage a movie database. Users can perform full CRUD operations on movies and users, view relational data using SQL JOIN queries, and save favorite movies using a DynamoDB NoSQL database.
+
+The project demonstrates integration between AWS services including EC2 (deployment), RDS (MySQL relational database), and DynamoDB (NoSQL storage). It is designed as a simple but complete cloud-based database application.
 
 ---
 
@@ -16,8 +19,8 @@
 
 - **Flask** — Python web framework
 - **AWS EC2** — hosts the running Flask application
-- **AWS RDS (MySQL)** — relational database for [describe what you stored]
-- **AWS DynamoDB** — non-relational database for [describe what you stored]
+- **AWS RDS (MySQL)** — relational database for storing movies, users, genres, and relationships
+- **AWS DynamoDB** — non-relational database for storing user favorite movies
 - **GitHub Actions** — auto-deploys code from GitHub to EC2 on push
 
 ---
@@ -26,19 +29,25 @@
 
 ```
 ProjectOne/
-├── flaskapp.py             # Main Flask application — routes and app logic
-├── dbCode.py               # Database helper functions (MySQL connection + queries)
-├── creds_sample.py         # Sample credentials file (see Credential Setup below)
+├── flaskapp.py # Main Flask application — all routes and app logic (MySQL + DynamoDB integration)
+├── dbCode.py # MySQL helper functions (connection + queries)
+├── dynamoCode.py # DynamoDB helper functions (favorites system)
+├── creds.py # AWS/RDS credentials (NOT pushed to GitHub)
+├── creds_sample.py # Example credentials file (safe version)
+
 ├── templates/
-│   ├── home.html           # Landing page
-│   ├── add_user.html       # Page to create a new user
-│   ├── delete_user.html    # Page to delete a created user
-│   ├── display_users.html  # Page that shows all existing users
-│   ├── display_movies.html # Page that shows the output for query get_movies (displays title and release date with options for CRUD)
-│   ├── movies_genres.html  # Page that shows the output for query get_movies_with_genres (displays movie title, release date, and genre)
-│   ├── add_movie.html      # Page to create a movie (C of CRUD, add movie title with release date)
-│   ├── update_movie.html   # Page to update/edit a movie (U of CRUD, update movie title and or release date)
-├── .gitignore              # Excludes creds.py and other sensitive files
+│ ├── home.html # Landing page / navigation dashboard
+│ ├── add_user.html # Create new user
+│ ├── display_users.html # View all users
+│ ├── update_user.html # Update user information
+│ ├── delete_user.html # (if used) user deletion page
+
+│ ├── add_movie.html # Create movie (SQL CREATE)
+│ ├── display_movies.html # View movies (SQL READ + DynamoDB links)
+│ ├── update_movie.html # Update movie (SQL UPDATE)
+│ ├── movies_genres.html # JOIN query results (movies + genres)
+│ ├── favorites.html # DynamoDB favorites page (NoSQL READ)
+
 └── README.md
 ```
 
@@ -104,40 +113,59 @@ db = "your-database-name"
 
 ### SQL (MySQL on RDS)
 
-<!-- Briefly describe your relational database schema. What tables do you have? What are the key relationships? -->
+The relational database stores movies, users, genres, and relationships between them.
 
-**Example:**
+- `movie` — stores movie_id, title, and release_date
+- `user` — stores user_id, name, and genre preference
+- `genre` — stores genre names
+- `movie_genres` — join table connecting movies and genres
+- `movie_cast` — stores cast information for movies
 
-- `[TableName]` — stores [description]; primary key is `[key]`
-- `[TableName]` — stores [description]; foreign key links to `[other table]`
 
-The JOIN query used in this project: <!-- describe it in plain English -->
+The JOIN query used in this project:
+- Movies are joined with the `movie_genres` table
+- Then joined with `genre` to display genre names alongside movies
+This allows the application to display enriched movie information on the `/movies-genres` page.
 
 ### DynamoDB
 
-<!-- Describe your DynamoDB table. What is the partition key? What attributes does each item have? How does it connect to the rest of the app? -->
+- **Table name:** FavoriteMovies
+- **Partition key:** username
+- **Sort key:** movie_id
 
-- **Table name:** `[your-table-name]`
-- **Partition key:** `[key-name]`
-- **Used for:** [description]
+Each item stores:
+- username (string)
+- movie_id (number/string)
+- title (string)
+
+### Used for:
+Storing a user's favorite movies. Users can add movies from the movie browser, view their saved favorites, and remove them.
 
 ---
 
 ## CRUD Operations
 
-| Operation | Route      | Description    |
-| --------- | ---------- | -------------- |
-| Create    | `/[route]` | [what it does] |
-| Read      | `/[route]` | [what it does] |
-| Update    | `/[route]` | [what it does] |
-| Delete    | `/[route]` | [what it does] |
-
+| Operation | Type | Route | Description |
+|----------|------|--------|-------------|
+| Create | SQL | `/add-movie`, `/add-user` | Adds movies and users to MySQL database |
+| Read | SQL | `/display-movies`, `/display-users` | Displays stored data |
+| Update | SQL | `/update-movie/<id>`, `/update-user/<id>` | Updates existing records |
+| Delete | SQL | `/delete-movie/<id>`, `/delete-user/<id>` | Removes records |
+| Create | NoSQL | `/add-favorite` | Adds favorite movie to DynamoDB |
+| Read | NoSQL | `/favorites` | Displays saved favorites |
+| Delete | NoSQL | `/delete-favorite/<id>` | Removes favorite movie |
 ---
 
 ## Challenges and Insights
 
 <!-- What was the hardest part? What did you learn? Any interesting design decisions? -->
-I learned that it is important to do a thorough check of what you have written down for the commit message/name before pushing it. At the beginning of the project, I accidentally named something “Add creds.py” when in reality I was adding a delete user route.
+One of the biggest challenges in this project was correctly integrating both SQL (MySQL) and NoSQL (DynamoDB) databases into a single Flask application. Initially, I struggled with correctly structuring JOIN queries due to inconsistencies in table names.
+
+Another challenge was debugging AWS permissions for DynamoDB, specifically IAM access errors when attempting to use PutItem. This helped me understand the importance of IAM roles and permissions in cloud applications.
+
+I also learned the importance of proper spacing and indentation in Python and HTML. Since both languages rely heavily on structure and formatting, small mistakes can lead to errors or unexpected behavior. This reinforced the importance of writing clean, well-organized code for both functionality and readability.
+
+Overall, I learned how full-stack applications connect frontend templates, backend Flask routes, and cloud-based databases into a single working system.
 
 
 
@@ -145,6 +173,8 @@ I learned that it is important to do a thorough check of what you have written d
 
 <!-- List any AI tools you used (e.g., ChatGPT) and briefly describe what you used them for. Per course policy, AI use is allowed but must be cited in code comments and noted here. -->
 
-In dbCode I used ChatGBT to help with an error of does not exist I kept on getting for my get genre and movie query. Turns out the image I was looking at for the provided database was wrong. Instead of movie_genre being a table it was movie_genres. I was stumped for a while looking at my code. I also used it to help me get it so each time it pulled from the database it was random to prevent the same movies being shown.
-
-Implementation of CRUD: I used ChatGPT to help me figure out how to format it for Flask compatibility.
+ChatGPT was used to assist with:
+- Debugging SQL JOIN queries
+- Helping structure Flask CRUD routes
+- Troubleshooting AWS DynamoDB IAM permission errors
+- Formatting README documentation
