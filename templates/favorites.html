@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Favorites</title>
+</head>
+
+<body>
+
+<h1>⭐ My Favorite Movies</h1>
+
+<a href="/display-movies">⬅ Back to Movies</a>
+
+<hr>
+
+{% if favorites|length == 0 %}
+    <p>No favorites yet.</p>
+{% else %}
+
+<table border="1" cellpadding="8">
+    <tr>
+        <th>Title</th>
+        <th>Actions</th>
+    </tr>
+
+    {% for movie in favorites %}
+    <tr>
+        <td>{{ movie['title'] }}</td>
+
+        <td>
+            <a href="/delete-favorite/{{ movie['movie_id'] }}">
+                ❌ Remove
+            </a>
+        </td>
+    </tr>
+    {% endfor %}
+
+</table>
+
+{% endif %}
+
+</body>
+</html>

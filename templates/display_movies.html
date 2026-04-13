@@ -30,6 +30,10 @@
                 <a href="/update-movie/{{ m['movie_id'] }}">Edit</a>
                 |
                 <a href="/delete-movie/{{ m['movie_id'] }}">Delete</a>
+                |
+                <a href="/add-favorite/{{ m['movie_id'] }}/{{ m['title'] | urlencode }}">
+                    ⭐ Favorite
+                </a>
             </td>
         </tr>
         {% endfor %}

@@ -6,6 +6,7 @@ from flask import Flask
 from flask import render_template
 from flask import Flask, render_template, request, redirect, url_for, flash
 from dbCode import *
+from dynamoCode import *
 
 app = Flask(__name__)
 app.secret_key = 'your_secret_key' # this is an artifact for using flash displays; 
@@ -132,6 +133,30 @@ def delete_movie(movie_id):
     flash("Movie deleted!", "warning")
     return redirect(url_for('display_movies'))
 
+@app.route('/add-favorite/<int:movie_id>/<title>')
+def add_favorite_route(movie_id, title):
+    username = "guest"
+
+    add_favorite(username, movie_id, title)
+
+    flash("Added to favorites!", "success")
+    return redirect(url_for('display_movies'))
+
+@app.route('/favorites')
+def favorites():
+    username = "guest"
+
+    favs = get_favorites(username)
+    return render_template('favorites.html', favorites=favs)
+
+@app.route('/delete-favorite/<movie_id>')
+def delete_favorite_route(movie_id):
+    username = "guest"
+
+    delete_favorite(username, movie_id)
+
+    flash("Removed from favorites!", "warning")
+    return redirect(url_for('favorites'))
 
 # these two lines of code should always be the last in the file
 if __name__ == '__main__':
