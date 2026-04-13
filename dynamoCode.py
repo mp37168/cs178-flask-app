@@ -1,22 +1,22 @@
 import boto3
-from boto3.dynamodb.conditions import Key
 
-# Connect to DynamoDB (same region as your AWS table)
-dynamodb = boto3.resource('dynamodb', region_name='us-east-2')
+REGION = "us-east-2"
+TABLE_NAME = "FavoriteMovies"
 
-# Your table name MUST match AWS exactly
-table = dynamodb.Table('FavoriteMovies')
 
+def get_table():
+    dynamodb = boto3.resource("dynamodb", region_name=REGION)
+    return dynamodb.Table(TABLE_NAME)
 
 # -------------------------
 # CREATE (add favorite)
 # -------------------------
-def add_favorite(username, movie_id, title):
+def add_favorite(username, movie_id, Title):
     table.put_item(
         Item={
             "username": username,
             "movie_id": str(movie_id),
-            "title": title
+            "Title": Title
         }
     )
 
@@ -24,12 +24,15 @@ def add_favorite(username, movie_id, title):
 # -------------------------
 # READ (get favorites)
 # -------------------------
-def get_favorites(username):
-    response = table.query(
-        KeyConditionExpression=Key('username').eq(username)
-    )
-    return response.get('Items', [])
 
+def get_favorites(username):
+    table = get_table()
+
+    response = table.scan()  
+
+    items = response.get("Items", [])
+
+    return [item for item in items if item.get("username") == username]
 
 # -------------------------
 # DELETE (remove favorite)

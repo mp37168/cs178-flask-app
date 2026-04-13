@@ -20,7 +20,7 @@ def execute_query(query, args=()):
     cur = conn.cursor(pymysql.cursors.DictCursor)
 
     cur.execute(query, args)
-    conn.commit()   # 🔥 THIS SAVES YOUR INSERT
+    conn.commit()   
 
     try:
         rows = cur.fetchall()

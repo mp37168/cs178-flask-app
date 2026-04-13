@@ -133,13 +133,11 @@ def delete_movie(movie_id):
     flash("Movie deleted!", "warning")
     return redirect(url_for('display_movies'))
 
+
 @app.route('/add-favorite/<int:movie_id>/<title>')
 def add_favorite_route(movie_id, title):
     username = "guest"
-
     add_favorite(username, movie_id, title)
-
-    flash("Added to favorites!", "success")
     return redirect(url_for('display_movies'))
 
 @app.route('/favorites')
