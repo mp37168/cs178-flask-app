@@ -18,46 +18,53 @@ def home():
 @app.route('/add-user', methods=['GET', 'POST'])
 def add_user():
     if request.method == 'POST':
-        # Extract form data
         name = request.form['name']
         genre = request.form['genre']
-        
-        # Process the data (e.g., add it to a database)
-        # For now, let's just print it to the console
-        print("Name:", name, ":", "Favorite Genre:", genre)
-        
-        flash('User added successfully! Huzzah!', 'success')  # 'success' is a category; makes a green banner at the top
-        # Redirect to home page or another page upon successful submission
-        return redirect(url_for('home'))
-    else:
-        # Render the form page if the request method is GET
-        return render_template('add_user.html')
 
-@app.route('/delete-user',methods=['GET', 'POST'])
-def delete_user():
-    if request.method == 'POST':
-        # Extract form data
-        name = request.form['name']
-        
-        # Process the data (e.g., add it to a database)
-        # For now, let's just print it to the console
-        print("Name to delete:", name)
-        
-        flash('User deleted successfully! Hoorah!', 'warning') 
-        # Redirect to home page or another page upon successful submission
-        return redirect(url_for('home'))
-    else:
-        # Render the form page if the request method is GET
-        return render_template('delete_user.html')
+        execute_query("""
+            INSERT INTO user (name, genre)
+            VALUES (%s, %s)
+        """, (name, genre))
 
+        flash('User added successfully!', 'success')
+        return redirect(url_for('display_users'))
+
+    return render_template('add_user.html')
+@app.route('/delete-user/<int:user_id>')
+def delete_user(user_id):
+    execute_query("DELETE FROM user WHERE user_id=%s", (user_id,))
+    flash("User deleted successfully!", "warning")
+    return redirect(url_for('display_users'))
 
 @app.route('/display-users')
 def display_users():
-    # hard code a value to the users_list;
-    # note that this could have been a result from an SQL query :) 
-    users_list = (('John','Doe','Comedy'),('Jane', 'Doe','Drama'))
-    return render_template('display_users.html', users = users_list)
+    users_list = execute_query("""
+        SELECT user_id, name, genre
+        FROM user
+    """)
+    return render_template('display_users.html', users=users_list)
 
+@app.route('/update-user/<int:user_id>', methods=['GET', 'POST'])
+def update_user(user_id):
+    if request.method == 'POST':
+        name = request.form['name']
+        genre = request.form['genre']
+
+        execute_query("""
+            UPDATE user
+            SET name=%s, genre=%s
+            WHERE user_id=%s
+        """, (name, genre, user_id))
+
+        flash("User updated successfully!", "success")
+        return redirect(url_for('display_users'))
+
+    user = execute_query(
+        "SELECT * FROM user WHERE user_id=%s",
+        (user_id,)
+    )
+
+    return render_template('update_user.html', user=user[0])
 
 @app.route('/movies-genres')
 def movies_genres():

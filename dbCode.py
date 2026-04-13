@@ -16,11 +16,19 @@ def get_conn():
     return conn
 
 def execute_query(query, args=()):
-    """Executes a SELECT query and returns all rows as dictionaries."""
-    cur = get_conn().cursor(pymysql.cursors.DictCursor)
+    conn = get_conn()
+    cur = conn.cursor(pymysql.cursors.DictCursor)
+
     cur.execute(query, args)
-    rows = cur.fetchall()
+    conn.commit()   # 🔥 THIS SAVES YOUR INSERT
+
+    try:
+        rows = cur.fetchall()
+    except:
+        rows = []
+
     cur.close()
+    conn.close()
     return rows
 
 def get_movies():

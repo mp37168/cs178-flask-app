@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Update User</title>
+  </head>
+
+  <body>
+    <h1>Update User</h1>
+
+    <form method="post">
+
+      <label>Name:</label><br />
+      <input 
+        type="text" 
+        name="name" 
+        value="{{ user.name }}" 
+        required 
+      />
+      <br /><br />
+
+      <label>Favorite Genre:</label><br />
+      <input 
+        type="text" 
+        name="genre" 
+        value="{{ user.genre }}" 
+        required 
+      />
+      <br /><br />
+
+      <input type="submit" value="Update" />
+
+    </form>
+
+    <br />
+    <a href="{{ url_for('display_users') }}">Cancel</a>
+
+  </body>
+</html>
